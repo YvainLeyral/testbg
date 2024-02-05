@@ -1,0 +1,20 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: Jsonata
+  title: Jsonata
+  description: Example template to perform a jsonata expression on input data
+spec:
+  owner: roadie
+  type: service
+
+  parameters: []
+  steps:
+    - id: jsonata
+      name: Jsonata
+      action: roadiehq:utils:jsonata:yaml:transform
+      input:
+        path: input-data.yaml
+        expression: '$ ~> | $ | { "items": [items, "item2"] }|'
+  output:
+    result: ${{ steps.jsonata.output.result }}
